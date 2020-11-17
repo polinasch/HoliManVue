@@ -3,7 +3,9 @@
     <b-table striped bordered hover :fields="fields" :sort-desc.sync="sortDesc"></b-table>
     <b-row>
         <b-col>
+            <router-link to="/benutzer">
             <b-button type="button" block variant="secondary" class="btn">Neuen Benutzer erstellen</b-button>
+            </router-link>
         </b-col>
         <b-col>
             <b-button type="cancel" block variant="light">Abbrechen</b-button>
