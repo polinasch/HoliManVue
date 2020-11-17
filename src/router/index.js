@@ -6,6 +6,7 @@ import Urlaubsantrag from "../components/Urlaubsantrag.vue"
 import Anträgeliste from "../views/Anträgeliste.vue"
 import Benutzerverwaltung from "../components/Benutzerverwaltung.vue"
 import Benutzer from "../components/Benutzer.vue"
+import Konfiguration from "../components/Konfiguration.vue"
 
 Vue.use(VueRouter);
 
@@ -43,8 +44,13 @@ const routes = [
 },
 {
     path: "/benutzer",
-    name: Benutzerverwaltung,
+    name: "benutzerverwaltung",
     component: Benutzer
+},
+{
+    path: "/konfiguration",
+    name: "konfiguration",
+    component: Konfiguration
 }
 ];
 
