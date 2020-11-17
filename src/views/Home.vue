@@ -46,9 +46,11 @@
           >
         </b-col>
         <b-col>
+          <router-link to="/urlaubsliste">
           <b-button type="button" block variant="dark" class="btn"
             >Urlaubsliste</b-button
           >
+          </router-link>
         </b-col>
       </b-row>
       <b-row>
