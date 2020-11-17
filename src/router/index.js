@@ -4,6 +4,7 @@ import Login from "../components/Login.vue"
 import Home from "../views/Home.vue"
 import Urlaubsantrag from "../components/Urlaubsantrag.vue"
 import Anträgeliste from "../views/Anträgeliste.vue"
+import Benutzerverwaltung from "../components/Benutzerverwaltung.vue"
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: "/antraegeliste",
     name: "antraegeliste",
     component: Anträgeliste
+},
+{
+    path: "/benutzerverwaltung",
+    name: "benutzerverwaltung",
+    component: Benutzerverwaltung
 }
 ];
 

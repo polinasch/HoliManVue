@@ -17,7 +17,9 @@
       </b-row>
       <b-row>
         <b-col>
+          <router-link to="/benutzerverwaltung">
             <b-button type="button" block variant="dark" class="btn">Benutzerverwaltung</b-button>
+          </router-link>
         </b-col>
         <b-col>
             <b-button type="button" block variant="dark" class="btn">Arbeitstage konfigurieren</b-button>
