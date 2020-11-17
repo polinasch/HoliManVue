@@ -33,12 +33,14 @@
       </b-row>
       <b-row>
         <b-col>
-            <router-link to="/urlaubsantrag">
+          <router-link to="/urlaubsantrag">
             <b-button type="button" block variant="dark" class="btn">Urlaubsantrag erstellen</b-button>
-            </router-link>
+          </router-link>
         </b-col>
         <b-col>
+          <router-link to="/antraegeliste">
             <b-button type="button" block variant="dark" class="btn"> Meine Urlaubsanträge</b-button>
+          </router-link>
         </b-col>
       </b-row>
     </b-container>
@@ -50,8 +52,6 @@ export default {
   name: "Home",
   data() {
     return {};
-  },
-  methods: {
   }
 };
 </script>
