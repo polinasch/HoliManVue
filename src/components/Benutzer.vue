@@ -149,7 +149,7 @@ export default {
         email: "",
         zugehoerigkeit: "",
         bundesland: null,
-        rolle: false,
+        rolle: [],
         vorgesetzter: null
       },
       bundeslaender: [
@@ -179,7 +179,7 @@ export default {
         this.form.email= "",
         this.form.zugehoerigkeit= "",
         this.form.bundesland= null,
-        this.form.rolle= false,
+        this.form.rolle= [],
         this.form.vorgesetzter= null
         this.$router.push({ name: "home" });
     },
