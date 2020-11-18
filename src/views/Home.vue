@@ -41,15 +41,17 @@
       </b-row>
       <b-row>
         <b-col>
-          <b-button type="button" block variant="dark" class="btn"
-            >Erhaltene Urlaubsanträge</b-button
-          >
+          <router-link to="/erhalteneAntraege">
+            <b-button type="button" block variant="dark" class="btn"
+              >Erhaltene Urlaubsanträge</b-button
+            >
+          </router-link>
         </b-col>
         <b-col>
           <router-link to="/urlaubsliste">
-          <b-button type="button" block variant="dark" class="btn"
-            >Urlaubsliste</b-button
-          >
+            <b-button type="button" block variant="dark" class="btn"
+              >Urlaubsliste</b-button
+            >
           </router-link>
         </b-col>
       </b-row>

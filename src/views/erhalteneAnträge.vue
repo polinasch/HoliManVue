@@ -6,15 +6,17 @@
 
 <script>
   export default {
-    name: 'Anträgeliste',
+    name: 'erhalteneAnträge',
     data() {
       return {
         fields: [
-            {key: 'Urlaubsart', sortable: false},
+            {key: 'ID', sortable: true},
+            {key: 'Vorname', sortable: true},
+            {key: 'Nachname', sortable: true}, 
+            {key: 'Urlaubsart', sortable: true},
             {key: 'Urlaubstage', sortable: true},
-            {key: 'von', sortable: true}, 
+            {key: 'von', sortable: true},
             {key: 'bis', sortable: true},
-            {key: 'Status', sortable: true},
             {key: ' ', sortable: false}
             ],
       }
