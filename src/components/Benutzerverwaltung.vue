@@ -8,7 +8,9 @@
             </router-link>
         </b-col>
         <b-col>
-            <b-button type="cancel" block variant="light">Abbrechen</b-button>
+            <router-link to="/home">
+    <b-button type="cancel" block variant="light">Abbrechen</b-button>
+    </router-link>
         </b-col>
       </b-row>
   </b-container>
