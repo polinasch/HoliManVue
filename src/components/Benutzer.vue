@@ -2,7 +2,7 @@
   <div>
     <b-container>
       <h2>Benutzer erstellen</h2>
-      <b-form @reset="onReset">
+      <b-form @reset="onReset" @submit.prevent="erstelleBenutzer" id="form">
         <b-form-group
           id="input-group-1"
           label="Benutzer-ID:"
@@ -11,8 +11,8 @@
           <b-form-input
             type="number"
             id="input-1"
-            v-model="form.id"
-            min="0"
+            v-model="BenutzerID"
+            min="2"
             required
           ></b-form-input>
         </b-form-group>
@@ -25,7 +25,7 @@
           <b-form-input
             type="text"
             id="input-2"
-            v-model="form.nutzername"
+            v-model="Benutzername"
             required
           ></b-form-input>
         </b-form-group>
@@ -34,7 +34,7 @@
           <b-form-input
             type="password"
             id="input-3"
-            v-model="form.passwort"
+            v-model="Passwort"
             required
           ></b-form-input>
         </b-form-group>
@@ -43,7 +43,7 @@
           <b-form-input
             type="text"
             id="input-4"
-            v-model="form.vorname"
+            v-model="Vorname"
             required
           ></b-form-input>
         </b-form-group>
@@ -52,7 +52,7 @@
           <b-form-input
             type="text"
             id="input-5"
-            v-model="form.nachname"
+            v-model="Nachname"
             required
           ></b-form-input>
         </b-form-group>
@@ -64,7 +64,7 @@
         >
           <b-form-datepicker
             id="input-6"
-            v-model="form.geburtsdatum"
+            v-model="Geburtsdatum"
             placeholder="Geburtsdatum auswählen"
             required
           ></b-form-datepicker>
@@ -74,7 +74,7 @@
           <b-form-input
             type="email"
             id="input-7"
-            v-model="form.email"
+            v-model="Email"
             required
           ></b-form-input>
         </b-form-group>
@@ -86,7 +86,7 @@
         >
           <b-form-datepicker
             id="input-8"
-            v-model="form.zugehoerigkeit"
+            v-model="Eintrittsdatum"
             placeholder="Datum auswählen"
             required
           ></b-form-datepicker>
@@ -97,20 +97,19 @@
           label="Bundesland:"
           label-for="input-9"
         >
-          <b-form-select
-            id="input-9"
-            v-model="form.bundesland"
-            :options="bundeslaender"
-            required
-          ></b-form-select>
+
+        <b-form-select id="input-9" v-model="bundesland" required>
+          <b-form-select-option v-for="bundesland in bundeslaender" :key="bundesland.BundeslandID" v-bind:value="bundesland.value">
+              {{ bundesland.Name }}
+          </b-form-select-option>
+        </b-form-select>
         </b-form-group>
 
         <b-form-group id="input-group-10" label="Rolle:" label-for="input-10">
           <b-form-checkbox-group
             id="input-10"
-            v-model="form.rolle"
+            v-model="rolle"
             :options="rollen"
-            required
           ></b-form-checkbox-group>
         </b-form-group>
 
@@ -119,12 +118,11 @@
           label="Vorgesetzter:"
           label-for="input-11"
         >
-          <b-form-select
-            id="input-11"
-            v-model="form.vorgesetzter"
-            :options="vorgesetzten"
-            required
-          ></b-form-select>
+          <b-form-select id="input-11" v-model="Vorgesetzter" required>
+            <b-form-select-option v-for="vorgesetzter in vorgesetzten" :key="vorgesetzter.BenutzerID" v-bind:value="vorgesetzter.value">
+              {{ vorgesetzter.Vorname + " " + vorgesetzter.Nachname }}
+          </b-form-select-option>
+          </b-form-select>
         </b-form-group>
 
         <b-button type="submit" variant="primary">Speichern</b-button>
@@ -135,54 +133,91 @@
 </template>
 
 <script>
+import axios from "axios";
+import { server } from "../helper.js";
 export default {
   name: "Benutzer",
   data() {
     return {
-      form: {
-        id: null,
-        nutzername: "",
-        passwort: "",
-        vorname: "",
-        nachname: "",
-        geburtsdatum: "",
-        email: "",
-        zugehoerigkeit: "",
+        BenutzerID: null,
+        Benutzername: "",
+        Passwort: "",
+        Vorname: "",
+        Nachname: "",
+        Geburtsdatum: "",
+        Email: "",
+        Eintrittsdatum: "",
         bundesland: null,
         rolle: [],
-        vorgesetzter: null
-      },
-      bundeslaender: [
-        { value: null, text: "Wählen Sie ein Bundesland aus" },
-        { value: "nrw", text: "Nordrhein-Westfalen" },
-        { value: "bayern", text: "Bayern" },
-      ],
+        istAdmin: false,
+        istVorgesetzter: false,
+        Vorgesetzter: null
+      ,
+      bundeslaender: [],
       rollen: [
-        { value: "Admin", text: "Admin" },
-        { value: "Vorgesetzter", text: "Vorgesetzter" },
+        { value: {istAdmin: true}, text: "Admin" },
+        { value: {istVorgesetzter: true}, text: "Vorgesetzter" },
       ],
-      vorgesetzten: [
-        { value: "Max Müller", text: "Max Müller"},
-        { value: "Susanne Busch", text: "Susanne Busch"}
-      ],
+      vorgesetzten: [],
     };
+  },
+  created () {
+    this.getBundeslaender();
+    this.getVorgesetzten();
   },
   methods: {
     onReset(evt) {
       evt.preventDefault();
-        this.form.id= null,
-        this.form.nutzername= "",
-        this.form.passwort= "",
-        this.form.vorname= "",
-        this.form.nachname= "",
-        this.form.geburtsdatum= "",
-        this.form.email= "",
-        this.form.zugehoerigkeit= "",
-        this.form.bundesland= null,
-        this.form.rolle= [],
-        this.form.vorgesetzter= null
+        this.BenutzerID= null,
+        this.Benutzername= "",
+        this.Passwort= "",
+        this.Vorname= "",
+        this.Nachname= "",
+        this.Geburtsdatum= "",
+        this.Email= "",
+        this.Eintrittsdatum= "",
+        this.bundesland= null,
+        this.istAdmin= false,
+        this.istVorgesetzter= false,
+        this.Vorgesetzter= null
         this.$router.push({ name: "home" });
     },
+    erstelleBenutzer(){
+      let benutzerdaten = {
+        BenutzerID : this.BenutzerID,
+        Benutzername : this.Benutzername,
+        Passwort: this.Passwort,
+        Vorname: this.Vorname,
+        Nachname: this.Nachname,
+        Geburtsdatum: this.Geburtsdatum,
+        Email: this.Email,
+        Eintrittsdatum: this.Eintrittsdatum,
+        bundesland: this.bundesland,
+        istAdmin: this.istAdmin,
+        istVorgesetzter: this.istVorgesetzter,
+        Vorgesetzter: this.vorgesetzter
+      }
+      this.submitToServer(benutzerdaten);
+    },
+    submitToServer(data) {
+      axios.post(server.baseURL + '/benutzer', data).then(data => {
+        this.$router.push({ name: "home" });
+        return data;
+      });
+    },
+    getBundeslaender(){
+      axios.get(server.baseURL + '/bundesland').then(response =>
+      (this.bundeslaender = response.data));
+    },
+    getVorgesetzten(){
+      let listBenutzer = [];
+       axios.get(server.baseURL + '/benutzer').then(response =>
+      (listBenutzer = response.data));
+      listBenutzer.filter(function(elem){
+      if(elem.istVorgesetzter == true) 
+        this.vorgesetzten.push(elem);
+      });
+    }
   },
 };
 </script>
