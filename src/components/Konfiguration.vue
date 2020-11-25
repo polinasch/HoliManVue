@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <h2>Arbeitstage konfigurieren</h2>
-    <b-form @reset="onReset">
+    <b-form @reset="onReset" @submit="createKonfiguration">
       <b-form-group label="Wählen Sie die Arbeitstage aus:">
         <b-form-checkbox-group
           v-model="arbeitstage"
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import { server } from "../helper.js";
 export default {
   name: "Konfiguration",
   data() {
@@ -38,6 +40,25 @@ export default {
         this.arbeitstage = [];
         this.$router.push({ name: "home" });
     },
+    createKonfiguration(){
+      let konfiguration = {
+        Montag: this.arbeitstage.Montag,
+        Dienstag: this.arbeitstage.Dienstag,
+        Mittwoch: this.arbeitstage.Mittwoch,
+        Donnerstag: this.arbeitstage.Donnerstag,
+        Freitag: this.arbeitstage.Freitag,
+        Samstag: this.arbeitstage.Samstag,
+        Sonntag: this.arbeitstage.Sonntag
+      }
+      this.submitToServer(konfiguration);
+    },
+    submitToServer(data) {
+      axios.post(server.baseURL + '/arbeitstage', data).then(data => {
+        this.$router.push({ name: "home" });
+        return data;
+      });
+    },
+    
 }
 };
 </script>
