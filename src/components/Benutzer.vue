@@ -195,7 +195,7 @@ export default {
         bundesland: this.bundesland,
         istAdmin: this.istAdmin,
         istVorgesetzter: this.istVorgesetzter,
-        Vorgesetzter: this.vorgesetzter
+        Vorgesetzter: this.Vorgesetzter
       }
       this.submitToServer(benutzerdaten);
     },
