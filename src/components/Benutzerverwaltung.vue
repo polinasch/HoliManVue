@@ -1,6 +1,36 @@
 <template>
   <b-container>
-    <b-table striped bordered hover :fields="fields" :items="alleBenutzer" :sort-desc.sync="sortDesc"></b-table>
+    <b-table striped bordered hover :fields="fields" :items="alleBenutzer" :sort-desc.sync="sortDesc">
+      <template #cell(BenutzerID)="row">
+        {{ row.item.BenutzerID }}
+      </template>
+      <template #cell(Benutzername)="row">
+        {{ row.item.Benutzername }}
+      </template>
+      <template #cell(Vorname)="row">
+        {{ row.item.Vorname }}
+      </template>
+      <template #cell(Nachname)="row">
+        {{ row.item.Nachname }}
+      </template>
+      <template #cell(Email)="row">
+        {{ row.item.Email }}
+      </template>
+      <template #cell(istVorgesetzter)="row">
+        {{ row.item.istVorgesetzter }}
+      </template>
+      <template #cell(istAdmin)="row">
+        {{ row.item.istAdmin }}
+      </template>
+      <template #cell(Aktionen)="row">
+        <b-button size="sm" @click="editBenutzer(row.item.BenutzerID)" variant="primary">
+          <b-icon icon="pencil-fill"></b-icon>
+        </b-button>
+        <b-button size="sm" @click="deleteBenutzter(row.item.BenutzerID)" variant="danger">
+          <b-icon icon="trash-fill"></b-icon>
+        </b-button>
+      </template>
+    </b-table>
     <b-row>
         <b-col>
             <router-link to="/benutzer">
@@ -32,7 +62,7 @@ import { server } from "../helper.js";
             {key: 'Email', sortable: true},
             {key: 'istVorgesetzter', sotable: false}, 
             {key: 'istAdmin', sortable: false},
-            {key: ' ', sortable: false}
+            {key: 'Aktionen', sortable: false}
         ],
         alleBenutzer: []
       }
@@ -44,7 +74,8 @@ import { server } from "../helper.js";
       getAllBenutzer(){
         axios.get(server.baseURL + '/benutzer').then(response =>
         (this.alleBenutzer = response.data));
-      }
+      },
+
     }
   }
 </script>
