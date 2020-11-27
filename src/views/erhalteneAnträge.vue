@@ -26,11 +26,14 @@
         {{ row.item.bis }}
       </template>
       <template #cell(Aktionen)="row">
-        <b-button size="sm" @click="editAntrag(row.item.AntragID)" variant="primary">
-          <b-icon icon="pencil-fill"></b-icon>
+        <b-button size="sm" @click="zeigeAntrag(row.item.AntragID)" variant="secondary">
+          <b-icon icon="eye"></b-icon>
         </b-button>
-        <b-button size="sm" @click="deleteAntrag(row.item.AntragID)" variant="danger">
-          <b-icon icon="trash-fill"></b-icon>
+        <b-button size="sm" @click="genehmigeAntrag(row.item.AntragID)" variant="primary">
+          <b-icon icon="check2"></b-icon>
+        </b-button>
+        <b-button size="sm" @click="AntragAblehnen(row.item.AntragID)" variant="danger">
+          <b-icon icon="x"></b-icon>
         </b-button>
       </template>
     </b-table>
