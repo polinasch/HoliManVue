@@ -2,7 +2,7 @@
   <div>
     <b-container>
       <h2>Urlaubsantrag erstellen</h2>
-      <b-form @reset="onReset">
+      <b-form @reset="onReset" @submit.prevent="erstelleAntrag">
         <b-form-group
           id="input-group-1"
           label="Urlaubsart:"
@@ -10,7 +10,7 @@
         >
           <b-form-select
             id="input-1"
-            v-model="form.urlaubsart"
+            v-model="Urlaubsart"
             :options="arten"
             required
           ></b-form-select>
@@ -19,7 +19,7 @@
         <b-form-group id="input-group-2" label="Grund:" label-for="input-2">
           <b-form-radio-group
             id="input-2"
-            v-model="form.grund"
+            v-model="Grund"
             :options="gruende"
             required
             stacked
@@ -33,7 +33,7 @@
         >
           <b-form-datepicker
             id="input-3"
-            v-model="form.von"
+            v-model="von"
             placeholder="Anfangsdatum auswählen"
             required
           ></b-form-datepicker>
@@ -42,14 +42,14 @@
         <b-form-group id="input-group-4" label="Enddatum:" label-for="input-4">
           <b-form-datepicker
             id="input-4"
-            v-model="form.bis"
+            v-model="bis"
             placeholder="Enddatum auswählen"
             required
           ></b-form-datepicker>
         </b-form-group>
 
         <div class="mt-3">
-          Anzahl der Urlaubstage: <strong>{{ urlaubstage }}</strong>
+          Anzahl der Urlaubstage: <strong>{{ Urlaubstage }}</strong>
         </div>
 
         <b-button type="submit" variant="primary">Speichern</b-button>
@@ -60,16 +60,18 @@
 </template>
 
 <script>
+import axios from "axios";
+import { server } from "../helper.js";
 export default {
   name: "Urlaubsantrag",
   data() {
     return {
-      form: {
-        urlaubsart: null,
-        grund: "",
+        Urlaubsart: "",
+        Grund: "",
         von: "",
         bis: "",
-      },
+        Status: "",
+        BenutzerID: 2,
       arten: [
         { value: null, text: "Wählen Sie die Urlaubsart aus" },
         { value: "Urlaub", text: "Urlaub" },
@@ -81,18 +83,36 @@ export default {
         { value: "Geburt", text: "Geburt" },
         { value: "Umzug", text: "Sonstiges" },
       ],
-      urlaubstage: "",
+      Urlaubstage: "",
     };
   },
   methods: {
       onReset(evt) {
         evt.preventDefault();
-        this.form.urlaubsart = null;
-        this.form.grund = "";
-        this.form.von = "";
-        this.form.bis = "";
-        this.urlaubstage ="";
+        this.Urlaubsart = null;
+        this.Grund = "";
+        this.von = "";
+        this.bis = "";
+        this.Urlaubstage ="";
         this.$router.push({ name: 'home' });
+      },
+      erstelleAntrag(){
+        let antragdaten = {
+        Urlaubsart: this.Urlaubsart,
+        Status: "Erstellt",
+        von: this.von,
+        bis: this.bis,
+        Grund: this.Grund,
+        informiert: false,
+        benutzer: this.BenutzerID
+      };
+      this.submitAntrag(antragdaten);
+      },
+      submitAntrag(data){
+        axios.post(server.baseURL + "/urlaubsantrag", data).then((data) => {
+        this.$router.push({ name: "home" });
+        return data;
+      });
       }
     }
 };
