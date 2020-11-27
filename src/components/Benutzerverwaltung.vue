@@ -23,9 +23,11 @@
         {{ row.item.istAdmin }}
       </template>
       <template #cell(Aktionen)="row">
+        <router-link :to="{name: 'editBenutzer', params: {id: row.item.BenutzerID}}">
         <b-button size="sm" @click="editBenutzer(row.item.BenutzerID)" variant="primary">
           <b-icon icon="pencil-fill"></b-icon>
         </b-button>
+        </router-link>
         <b-button size="sm" @click="deleteBenutzer(row.item.BenutzerID)" variant="danger">
           <b-icon icon="trash-fill"></b-icon>
         </b-button>
