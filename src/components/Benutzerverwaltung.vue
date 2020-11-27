@@ -26,7 +26,7 @@
         <b-button size="sm" @click="editBenutzer(row.item.BenutzerID)" variant="primary">
           <b-icon icon="pencil-fill"></b-icon>
         </b-button>
-        <b-button size="sm" @click="deleteBenutzter(row.item.BenutzerID)" variant="danger">
+        <b-button size="sm" @click="deleteBenutzer(row.item.BenutzerID)" variant="danger">
           <b-icon icon="trash-fill"></b-icon>
         </b-button>
       </template>
@@ -75,7 +75,16 @@ import { server } from "../helper.js";
         axios.get(server.baseURL + '/benutzer').then(response =>
         (this.alleBenutzer = response.data));
       },
-
+      editBenutzer(id){
+        console.log(id);
+      },
+      deleteBenutzer(id){
+        axios.delete(server.baseURL + '/benutzer/' + id).then(response =>{
+          console.log(response);
+          this.getAllBenutzer();
+        }
+        )
+      }
     }
   }
 </script>
