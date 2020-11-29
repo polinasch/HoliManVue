@@ -5,13 +5,13 @@
         {{ row.item.Urlaubsart }}
       </template>
       <template #cell(Urlaubstage)="row">
-        {{ row.item.von }} bis {{ row.item.bis }}
+         {{ moment(row.item.von).format('YYYY-MM-DD')}} bis {{ moment(row.item.bis).format('YYYY-MM-DD')}}
       </template>
       <template #cell(von)="row">
-        {{ row.item.von }}
+        {{ moment(row.item.von).format('YYYY-MM-DD')}}
       </template>
       <template #cell(bis)="row">
-        {{ row.item.bis }}
+        {{ moment(row.item.bis).format('YYYY-MM-DD')}}
       </template>
       <template #cell(Status)="row">
         {{ row.item.Status }}
