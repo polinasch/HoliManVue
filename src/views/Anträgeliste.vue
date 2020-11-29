@@ -64,6 +64,12 @@ import { server } from "../helper.js";
       getAllAnträge(){
         axios.get(server.baseURL + '/urlaubsantrag').then(response =>
         (this.alleAnträge = response.data));
+      },
+      deleteAntrag(id){
+        axios.delete(server.baseURL + "/urlaubsantrag/" + id).then((response) => {
+        console.log(response);
+        this.getAllAnträge();
+      });
       }
     }
   }
