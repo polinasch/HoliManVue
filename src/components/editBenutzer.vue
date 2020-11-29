@@ -83,11 +83,11 @@
           label="Bundesland:"
           label-for="input-9"
         >
-          <b-form-select id="input-9" v-model="Benutzer.bundesland" required>
+          <b-form-select id="input-9" v-model="Benutzer.bundesland.BundeslandID" required>
             <b-form-select-option
               v-for="bundesland in bundeslaender"
               :key="bundesland.BundeslandID"
-              v-bind:value="bundesland"
+              v-bind:value="bundesland.BundeslandID"
             >
               {{ bundesland.Name }}
             </b-form-select-option>
@@ -112,7 +112,7 @@
             <b-form-select-option
               v-for="vorgesetzter in vorgesetzten"
               :key="vorgesetzter.BenutzerID"
-              v-bind:value="vorgesetzter"
+              v-bind:value="vorgesetzter.BenutzerID"
             >
               {{ vorgesetzter.Vorname + " " + vorgesetzter.Nachname }}
             </b-form-select-option>
@@ -143,7 +143,7 @@ export default {
         Geburtsdatum: "",
         Email: "",
         Eintrittsdatum: "",
-        bundesland: {},
+        bundesland: null,
         istAdmin: false,
         istVorgesetzter: false,
         Vorgesetzter: "",
