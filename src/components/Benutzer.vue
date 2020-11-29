@@ -87,7 +87,7 @@
             <b-form-select-option
               v-for="bundesland in bundeslaender"
               :key="bundesland.BundeslandID"
-              v-bind:value="bundesland"
+              v-bind:value="bundesland.BundeslandID"
             >
               {{ bundesland.Name }}
             </b-form-select-option>
@@ -108,7 +108,7 @@
           label="Vorgesetzter:"
           label-for="input-11"
         >
-          <b-form-select id="input-11" v-model="Vorgesetzter" required>
+          <b-form-select id="input-11" v-model="Vorgesetzter" required @change="getVorgesetzterID">
             <b-form-select-option
               v-for="vorgesetzter in vorgesetzten"
               :key="vorgesetzter.BenutzerID"
@@ -119,7 +119,7 @@
           </b-form-select>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">Speichern</b-button>
+          <b-button type="submit" variant="primary">Speichern</b-button>
         <b-button type="reset" variant="secondary">Abbrechen</b-button>
       </b-form>
     </b-container>
@@ -140,13 +140,13 @@ export default {
       Geburtsdatum: "",
       Email: "",
       Eintrittsdatum: "",
-      bundesland: "",
-      rolle: [],
+      bundesland: null,
       istAdmin: false,
       istVorgesetzter: false,
       Vorgesetzter: "",
       bundeslaender: [],
       vorgesetzten: [],
+      VorgesetzterID: null
     };
   },
   created() {
@@ -163,7 +163,7 @@ export default {
         this.Geburtsdatum = "";
         this.Email = "";
         this.Eintrittsdatum = "";
-        this.bundesland = "";
+        this.bundesland = null;
         this.istAdmin = false;
         this.istVorgesetzter = false;
         this.Vorgesetzter = "";
@@ -178,7 +178,7 @@ export default {
         Geburtsdatum: this.Geburtsdatum,
         Email: this.Email,
         Eintrittsdatum: this.Eintrittsdatum,
-        bundesland: this.bundesland.BundeslandID,
+        bundesland: this.bundesland,
         istAdmin: this.istAdmin,
         istVorgesetzter: this.istVorgesetzter,
         Vorgesetzter:
@@ -202,6 +202,9 @@ export default {
         .get(server.baseURL + "/benutzer/vorgesetzter?istVorgesetzter=true")
         .then((response) => (this.vorgesetzten = response.data));
     },
+    getVorgesetzterID(){
+      this.VorgesetzterID = this.Vorgesetzter.BenutzerID;
+    }
   },
 };
 </script>
