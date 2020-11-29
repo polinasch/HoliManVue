@@ -74,13 +74,6 @@ import { server } from "../helper.js";
       getErhalteneAnträge(){
         axios.get(server.baseURL + '/urlaubsantrag').then(response =>
         (this.erhalteneAnträge = response.data));
-      },
-      deleteAntrag(id){
-        axios.delete(server.baseURL + '/urlaubsantrag/' + id).then(response =>{
-          console.log(response);
-          this.getErhalteneAnträge();
-        }
-        )
       }
     }
   }
