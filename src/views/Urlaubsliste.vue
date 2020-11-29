@@ -1,5 +1,6 @@
 <template>
   <b-container>
+    <h2>Mitarbeiter im Urlaub</h2>
     <b-table striped bordered hover :fields="fields" :items="urlaubsliste" :sort-desc.sync="sortDesc">
       <template #cell(BenutzerID)="row">
         {{ row.item.benutzer.BenutzerID }}

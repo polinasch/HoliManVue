@@ -1,5 +1,6 @@
 <template>
   <b-container>
+    <h2>Meine Urlaubsanträge</h2>
     <b-table striped bordered hover :fields="fields" :items="alleAnträge" :sort-desc.sync="sortDesc">
       <template #cell(Urlaubsart)="row">
         {{ row.item.Urlaubsart }}
@@ -32,7 +33,7 @@
       </template>
     </b-table>
     <router-link to="/home">
-    <b-button type="cancel" block variant="light">Abbrechen</b-button>
+    <b-button type="cancel" block variant="light">Zurück zur Startseite</b-button>
     </router-link>
   </b-container>
 </template>

@@ -1,6 +1,7 @@
 <template>
   <div id="home">
     <b-container class="home-container" fluid>
+      <h2>Holiday Manager</h2>
       <b-row>
         <b-col>
           <b-button type="button" block variant="light" class="btn"
