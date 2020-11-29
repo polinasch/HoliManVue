@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h2>Erhaltene urlaubsanträge</h2>
+    <h2>Erhaltene Urlaubsanträge</h2>
     <b-table striped bordered hover :fields="fields" :items="erhalteneAnträge" :sort-desc.sync="sortDesc">
       <template #cell(AntragID)="row">
         {{ row.item.AntragID }}
