@@ -1,5 +1,6 @@
 <template>
   <b-container>
+    <h2>Erhaltene urlaubsanträge</h2>
     <b-table striped bordered hover :fields="fields" :items="erhalteneAnträge" :sort-desc.sync="sortDesc">
       <template #cell(AntragID)="row">
         {{ row.item.AntragID }}
@@ -26,9 +27,11 @@
         {{ moment(row.item.bis).format('YYYY-MM-DD')}}
       </template>
       <template #cell(Aktionen)="row">
-        <b-button size="sm" @click="zeigeAntrag(row.item.AntragID)" variant="secondary">
+        <router-link :to="{ name: 'zeigeAntragdetails', params: { id: row.item.AntragID } }">
+        <b-button size="sm" variant="secondary">
           <b-icon icon="eye"></b-icon>
         </b-button>
+        </router-link>
         <b-button size="sm" @click="genehmigeAntrag(row.item.AntragID)" variant="primary">
           <b-icon icon="check2"></b-icon>
         </b-button>

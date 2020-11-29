@@ -10,6 +10,7 @@ import editBenutzer from "../components/editBenutzer.vue"
 import Konfiguration from "../components/Konfiguration.vue"
 import Urlaubsliste from "../views/Urlaubsliste.vue"
 import erhalteneAnträge from "../views/erhalteneAnträge.vue"
+import zeigeAntragdetails from "../views/zeigeAntragdetails.vue"
 
 Vue.use(VueRouter);
 
@@ -69,6 +70,11 @@ const routes = [
     path: "/erhalteneAntraege",
     name: "erhalteneAntraege",
     component: erhalteneAnträge
+},
+{
+    path: "Antragdetails",
+    name: "zeigeAntragdetails",
+    component: zeigeAntragdetails
 }
 ];
 
