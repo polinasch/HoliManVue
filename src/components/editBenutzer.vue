@@ -119,6 +119,7 @@
           </b-form-select>
         </b-form-group>
 
+        <p>{{Benutzer}}</p>
         <b-button type="submit" variant="primary">Speichern</b-button>
         <b-button type="reset" variant="secondary">Abbrechen</b-button>
       </b-form>
@@ -134,14 +135,28 @@ export default {
   data() {
     return {
       BenutzerID: null,  
-      Benutzer: {}
+      Benutzer: {
+        Benutzername: "",
+        Passwort: "",
+        Vorname: "",
+        Nachname: "",
+        Geburtsdatum: "",
+        Email: "",
+        Eintrittsdatum: "",
+        bundesland: {},
+        istAdmin: false,
+        istVorgesetzter: false,
+        Vorgesetzter: "",
+      },
+      bundeslaender: [],
+      vorgesetzten: [],
     };
   },
   created() {
     this.BenutzerID = this.$route.params.id;
     this.getBenutzer();
-    /*this.getBundeslaender();
-    this.getVorgesetzten();*/
+    this.getBundeslaender();
+    this.getVorgesetzten();
   },
   methods: {
     onReset(evt) {
