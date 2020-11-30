@@ -143,7 +143,7 @@ export default {
         Geburtsdatum: "",
         Email: "",
         Eintrittsdatum: "",
-        bundesland: null,
+        bundesland: "",
         istAdmin: false,
         istVorgesetzter: false,
         Vorgesetzter: "",
