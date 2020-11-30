@@ -2,7 +2,7 @@
   <div>
     <b-container>
       <h2>
-        Urlaubsantrag mit der ID: {{ Antrag.AntragID}}
+        Detaillierter Urlaubsantrag
       </h2>
       <div>
         <b-form id="zeigeAntrag">
