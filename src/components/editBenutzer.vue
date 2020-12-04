@@ -112,7 +112,7 @@
             <b-form-select-option
               v-for="vorgesetzter in vorgesetzten"
               :key="vorgesetzter.BenutzerID"
-              v-bind:value="vorgesetzter.BenutzerID"
+              v-bind:value="vorgesetzter"
             >
               {{ vorgesetzter.Vorname + " " + vorgesetzter.Nachname }}
             </b-form-select-option>
@@ -193,16 +193,15 @@ export default {
         Vorgesetzter:
           this.Benutzer.Vorgesetzter.Vorname + " " + this.Benutzer.Vorgesetzter.Nachname,
       };
-      this.updateBenutzer(benutzerdaten);
+      this.updateBenutzer(this.BenutzerID, benutzerdaten);
     },
-    /*updateBenutzer(data) {
-      axios.put(server.baseURL/customer/update?customerID=${this.id}`,
-          customerData
-        )
+    updateBenutzer(id, data) {
+      axios.put(server.baseURL + '/benutzer/' + id, data)
         .then(data => {
-          router.push({ name: "home" });
+          this.$router.push({ name: "benutzerverwaltung" });
+          return data;
         });
-    },*/
+    },
     getBundeslaender() {
       axios
         .get(server.baseURL + "/bundesland")

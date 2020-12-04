@@ -71,7 +71,7 @@ export default {
         von: "",
         bis: "",
         Status: "",
-        BenutzerID: 2,
+        BenutzerID: 20,
       arten: [
         { value: null, text: "Wählen Sie die Urlaubsart aus" },
         { value: "Urlaub", text: "Urlaub" },

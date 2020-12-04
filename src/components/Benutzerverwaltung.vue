@@ -50,7 +50,6 @@
         >
           <b-button
             size="sm"
-            @click="editBenutzer(row.item.BenutzerID)"
             variant="primary"
           >
             <b-icon icon="pencil-fill"></b-icon>
@@ -97,9 +96,6 @@ export default {
       axios
         .get(server.baseURL + "/benutzer")
         .then((response) => (this.alleBenutzer = response.data));
-    },
-    editBenutzer(id) {
-      console.log(id);
     },
     deleteBenutzer(id) {
       axios.delete(server.baseURL + "/benutzer/" + id).then((response) => {
