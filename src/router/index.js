@@ -7,6 +7,7 @@ import Anträgeliste from "../views/Anträgeliste.vue"
 import Benutzerverwaltung from "../components/Benutzerverwaltung.vue"
 import Benutzer from "../components/Benutzer.vue"
 import editBenutzer from "../components/editBenutzer.vue"
+import editUrlaubsantrag from "../components/editUrlaubsantrag.vue"
 import Konfiguration from "../components/Konfiguration.vue"
 import Urlaubsliste from "../views/Urlaubsliste.vue"
 import erhalteneAnträge from "../views/erhalteneAnträge.vue"
@@ -36,6 +37,11 @@ const routes = [
     name: "urlaubsantrag",
     component: Urlaubsantrag
 },
+{
+    path: "/editUrlaubsantrag",
+    name: "editUrlaubsantrag",
+    component: editUrlaubsantrag
+},
 { 
     path: "/antraegeliste",
     name: "antraegeliste",
@@ -52,7 +58,7 @@ const routes = [
     component: Benutzer
 },
 {
-    path: "/benutzer",
+    path: "/editBenutzer",
     name: "editBenutzer",
     component: editBenutzer
 },

@@ -18,9 +18,11 @@
         {{ row.item.Status }}
       </template>
       <template #cell(Aktionen)="row">
+        <router-link :to="{ name: 'editUrlaubsantrag', params: { id: row.item.AntragID } }">
         <b-button size="sm" @click="editAntrag(row.item.AntragID)" variant="secondary">
           <b-icon icon="pencil-fill"></b-icon>
         </b-button>
+        </router-link>
         <b-button size="sm" @click="sendAntrag(row.item.AntragID)" variant="primary">
           <b-icon icon="envelope"></b-icon>
         </b-button>
@@ -70,6 +72,9 @@ import { server } from "../helper.js";
         console.log(response);
         this.getAllAnträge();
       });
+      },
+      editAntrag(id){
+        console.log(id);
       }
     }
   }
