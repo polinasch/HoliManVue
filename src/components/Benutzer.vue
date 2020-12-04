@@ -118,7 +118,6 @@
             </b-form-select-option>
           </b-form-select>
         </b-form-group>
-
           <b-button type="submit" variant="primary">Speichern</b-button>
         <b-button type="reset" variant="secondary">Abbrechen</b-button>
       </b-form>
