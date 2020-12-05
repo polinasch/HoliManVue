@@ -102,7 +102,7 @@ export default {
         console.log(response);
         this.getAllBenutzer();
       });
-    },
+    }
   },
 };
 </script>

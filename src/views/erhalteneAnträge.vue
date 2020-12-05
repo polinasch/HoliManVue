@@ -18,13 +18,13 @@
         {{ row.item.Urlaubsart }}
       </template>
       <template #cell(Urlaubstage)="row">
-        {{ moment(row.item.von).format('YYYY-MM-DD')}} bis {{ moment(row.item.bis).format('YYYY-MM-DD')}}
+        {{ moment(row.item.von).format('DD.MM.YYYY')}} bis {{ moment(row.item.bis).format('DD.MM.YYYY')}}
       </template>
       <template #cell(von)="row">
-        {{ moment(row.item.von).format('YYYY-MM-DD')}}
+        {{ moment(row.item.von).format('DD.MM.YYYY')}}
       </template>
       <template #cell(bis)="row">
-        {{ moment(row.item.bis).format('YYYY-MM-DD')}}
+        {{ moment(row.item.bis).format('DD.MM.YYYY')}}
       </template>
       <template #cell(Aktionen)="row">
         <router-link :to="{ name: 'zeigeAntragdetails', params: { id: row.item.AntragID } }">
