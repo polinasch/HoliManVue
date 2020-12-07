@@ -52,6 +52,7 @@
             id="input-6"
             v-model="Geburtsdatum"
             placeholder="Geburtsdatum auswählen"
+            :max="maxGeburtsdatum"
             required
           ></b-form-datepicker>
         </b-form-group>
@@ -74,6 +75,7 @@
             id="input-8"
             v-model="Eintrittsdatum"
             placeholder="Datum auswählen"
+            :max="maxEintrittsdatum"
             required
           ></b-form-datepicker>
         </b-form-group>
@@ -131,6 +133,17 @@ import { server } from "../helper.js";
 export default {
   name: "Benutzer",
   data() {
+    const datum = new Date();
+    const datum_heute = new Date(datum.getFullYear(), datum.getMonth(), datum.getDate());
+    
+    const maxEintritt = new Date(datum_heute);
+    maxEintritt.setMonth(maxEintritt.getMonth());
+
+    const maxGeburtstag = new Date(datum_heute);
+    maxGeburtstag.setFullYear(maxGeburtstag.getFullYear()-14);
+    maxGeburtstag.setMonth(11);
+    maxGeburtstag.setDate(31);
+      
     return {
       Benutzername: "",
       Passwort: "",
@@ -145,7 +158,9 @@ export default {
       Vorgesetzter: "",
       bundeslaender: [],
       vorgesetzten: [],
-      VorgesetzterID: null
+      VorgesetzterID: null,
+      maxEintrittsdatum: maxEintritt,
+      maxGeburtsdatum: maxGeburtstag
     };
   },
   created() {
