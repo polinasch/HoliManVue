@@ -114,7 +114,7 @@
             <b-form-select-option
               v-for="vorgesetzter in vorgesetzten"
               :key="vorgesetzter.BenutzerID"
-              v-bind:value="vorgesetzter"
+              v-bind:value="vorgesetzter.BenutzerID"
             >
               {{ vorgesetzter.Vorname + " " + vorgesetzter.Nachname }}
             </b-form-select-option>
@@ -156,7 +156,7 @@ export default {
         bundesland: "",
         istAdmin: false,
         istVorgesetzter: false,
-        Vorgesetzter: "",
+        Vorgesetzter: null,
       },
       bundeslaender: [],
       vorgesetzten: [],
@@ -183,7 +183,7 @@ export default {
         this.Benutzer.bundesland = "";
         this.Benutzer.istAdmin = false;
         this.Benutzer.istVorgesetzter = false;
-        this.Benutzer.Vorgesetzter = "";
+        this.Benutzer.Vorgesetzter = null;
       this.$router.push({ name: "benutzerverwaltung" });
     },
     getBenutzer(){
@@ -202,8 +202,7 @@ export default {
         bundesland: this.Benutzer.bundesland.BundeslandID,
         istAdmin: this.Benutzer.istAdmin,
         istVorgesetzter: this.Benutzer.istVorgesetzter,
-        Vorgesetzter:
-          this.Benutzer.Vorgesetzter.Vorname + " " + this.Benutzer.Vorgesetzter.Nachname,
+        Vorgesetzter: this.Benutzer.Vorgesetzter
       };
       this.updateBenutzer(this.BenutzerID, benutzerdaten);
     },

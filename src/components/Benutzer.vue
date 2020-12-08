@@ -110,11 +110,11 @@
           label="Vorgesetzter:"
           label-for="input-11"
         >
-          <b-form-select id="input-11" v-model="Vorgesetzter" required @change="getVorgesetzterID">
+          <b-form-select id="input-11" v-model="Vorgesetzter" required>
             <b-form-select-option
               v-for="vorgesetzter in vorgesetzten"
               :key="vorgesetzter.BenutzerID"
-              v-bind:value="vorgesetzter"
+              v-bind:value="vorgesetzter.BenutzerID"
             >
               {{ vorgesetzter.Vorname + " " + vorgesetzter.Nachname }}
             </b-form-select-option>
@@ -153,10 +153,9 @@ export default {
       bundesland: null,
       istAdmin: false,
       istVorgesetzter: false,
-      Vorgesetzter: "",
+      Vorgesetzter: null,
       bundeslaender: [],
       vorgesetzten: [],
-      VorgesetzterID: null,
       maxEintrittsdatum: maxEintritt,
       maxGeburtsdatum: maxGeburtstag
     };
@@ -178,7 +177,7 @@ export default {
         this.bundesland = null;
         this.istAdmin = false;
         this.istVorgesetzter = false;
-        this.Vorgesetzter = "";
+        this.Vorgesetzter = null;
       this.$router.push({ name: "home" });
     },
     erstelleBenutzer() {
@@ -193,8 +192,7 @@ export default {
         bundesland: this.bundesland,
         istAdmin: this.istAdmin,
         istVorgesetzter: this.istVorgesetzter,
-        Vorgesetzter:
-          this.Vorgesetzter.Vorname + " " + this.Vorgesetzter.Nachname,
+        Vorgesetzter: this.Vorgesetzter
       };
       this.submitToServer(benutzerdaten);
     },
@@ -213,9 +211,6 @@ export default {
       axios
         .get(server.baseURL + "/benutzer/vorgesetzter?istVorgesetzter=true")
         .then((response) => (this.vorgesetzten = response.data));
-    },
-    getVorgesetzterID(){
-      this.VorgesetzterID = this.Vorgesetzter.BenutzerID;
     }
   },
 };
