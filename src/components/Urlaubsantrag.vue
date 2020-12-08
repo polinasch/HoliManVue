@@ -152,7 +152,7 @@ export default {
         axios
         .get(server.baseURL + "/benutzer")
         .then((response) => (this.Benutzer = response.data));
-    }
+      }
     }
 };
 </script>
