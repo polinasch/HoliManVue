@@ -141,8 +141,6 @@ export default {
 
     const maxGeburtstag = new Date(datum_heute);
     maxGeburtstag.setFullYear(maxGeburtstag.getFullYear()-14);
-    maxGeburtstag.setMonth(11);
-    maxGeburtstag.setDate(31);
       
     return {
       Benutzername: "",
