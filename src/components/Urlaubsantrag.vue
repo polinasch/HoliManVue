@@ -5,20 +5,36 @@
       <b-form @reset="onReset" @submit.prevent="erstelleAntrag">
         <b-form-group
           id="input-group-1"
-          label="Urlaubsart:"
+          label="Mitarbeiter:"
           label-for="input-1"
         >
+          <b-form-select id="input-1" v-model="benutzer" required>
+            <b-form-select-option
+              v-for="benutzer in Benutzer"
+              :key="benutzer.BenutzerID"
+              v-bind:value="benutzer.BenutzerID"
+            >
+              {{ "ID: "+ benutzer.BenutzerID + ", " + benutzer.Vorname + " " + benutzer.Nachname }}
+            </b-form-select-option>
+          </b-form-select>
+        </b-form-group>
+        
+        <b-form-group
+          id="input-group-2"
+          label="Urlaubsart:"
+          label-for="input-2"
+        >
           <b-form-select
-            id="input-1"
+            id="input-2"
             v-model="Urlaubsart"
             :options="arten"
             required
           ></b-form-select>
         </b-form-group>
 
-        <b-form-group id="input-group-2" label="Grund:" label-for="input-2">
+        <b-form-group id="input-group-3" label="Grund:" label-for="input-3">
           <b-form-radio-group
-            id="input-2"
+            id="input-3"
             v-model="Grund"
             :options="gruende"
             required
@@ -27,23 +43,25 @@
         </b-form-group>
 
         <b-form-group
-          id="input-group-3"
+          id="input-group-4"
           label="Anfangsdatum:"
-          label-for="input-3"
+          label-for="input-4"
         >
           <b-form-datepicker
-            id="input-3"
+            id="input-4"
             v-model="von"
             placeholder="Anfangsdatum auswählen"
             required
+            :min="minAnfang"
           ></b-form-datepicker>
         </b-form-group>
 
-        <b-form-group id="input-group-4" label="Enddatum:" label-for="input-4">
+        <b-form-group id="input-group-5" label="Enddatum:" label-for="input-5">
           <b-form-datepicker
-            id="input-4"
+            id="input-5"
             v-model="bis"
             placeholder="Enddatum auswählen"
+            :min="minEnde"
             required
           ></b-form-datepicker>
         </b-form-group>
@@ -65,13 +83,25 @@ import { server } from "../helper.js";
 export default {
   name: "Urlaubsantrag",
   data() {
+    const datum = new Date();
+    const datum_heute = new Date(datum.getFullYear(), datum.getMonth(), datum.getDate());
+    
+    const minVon = new Date(datum_heute);
+    minVon.setDate(minVon.getDate()+ 1);
+
+    const minBis = new Date(datum_heute);
+    minBis.setDate(minVon.getDate()+1);
+
     return {
         Urlaubsart: "",
         Grund: "",
         von: "",
         bis: "",
         Status: "",
-        BenutzerID: 24,
+        minAnfang: minVon,
+        minEnde: minBis,
+        benutzer: null,
+        Benutzer: [],
       arten: [
         { value: null, text: "Wählen Sie die Urlaubsart aus" },
         { value: "Urlaub", text: "Urlaub" },
@@ -86,6 +116,9 @@ export default {
       Urlaubstage: "",
     };
   },
+  created() {
+    this.getBenutzer();
+  },
   methods: {
       onReset(evt) {
         evt.preventDefault();
@@ -94,6 +127,7 @@ export default {
         this.von = "";
         this.bis = "";
         this.Urlaubstage ="";
+        this.benutzer = null;
         this.$router.push({ name: 'home' });
       },
       erstelleAntrag(){
@@ -104,7 +138,7 @@ export default {
         bis: this.bis,
         Grund: this.Grund,
         informiert: false,
-        benutzer: this.BenutzerID
+        benutzer: this.benutzer
       };
       this.submitAntrag(antragdaten);
       },
@@ -113,7 +147,12 @@ export default {
         this.$router.push({ name: "home" });
         return data;
       });
-      }
+      },
+      getBenutzer() {
+        axios
+        .get(server.baseURL + "/benutzer")
+        .then((response) => (this.Benutzer = response.data));
+    }
     }
 };
 </script>
