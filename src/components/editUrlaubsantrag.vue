@@ -73,7 +73,6 @@ export default {
         von: "",
         bis: "",
         Status: "",
-        BenutzerID: 20,
         },
       arten: [
         { value: null, text: "Wählen Sie die Urlaubsart aus" },
@@ -115,7 +114,7 @@ export default {
         bis: this.Antrag.bis,
         Grund: this.Antrag.Grund,
         informiert: false,
-        benutzer: this.BenutzerID
+        benutzer: this.Antrag.benutzer
       };
       this.updateAntrag(this.AntragID, antragdaten);
       },
