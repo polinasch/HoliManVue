@@ -112,9 +112,12 @@ export default {
         });
     },
     deleteAntrag(id) {
-      axios.delete(server.baseURL + "/urlaubsantrag/" + id).then((response) => {
+      axios
+      .delete(server.baseURL + "/urlaubsantrag/" + id).then((response) => {
         console.log(response);
-        this.getAllAnträge();
+        this.getAllAnträge(id);
+      }).catch(function (error){
+        console.log(error);
       });
     },
     getBenutzer() {
