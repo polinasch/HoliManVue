@@ -42,7 +42,6 @@
         >
           <b-button
             size="sm"
-            @click="editAntrag(row.item.AntragID)"
             variant="secondary"
           >
             <b-icon icon="pencil-fill"></b-icon>
@@ -117,9 +116,6 @@ export default {
         console.log(response);
         this.getAllAnträge();
       });
-    },
-    editAntrag(id) {
-      console.log(id);
     },
     getBenutzer() {
         axios

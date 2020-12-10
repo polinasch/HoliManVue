@@ -10,7 +10,7 @@
         >
           <b-form-select
             id="input-1"
-            v-model="Antrag.Urlaubsart"
+            v-model="Urlaubsart"
             :options="arten"
             required
           ></b-form-select>
@@ -19,7 +19,7 @@
         <b-form-group id="input-group-2" label="Grund:" label-for="input-2">
           <b-form-radio-group
             id="input-2"
-            v-model="Antrag.Grund"
+            v-model="Grund"
             :options="gruende"
             required
             stacked
@@ -33,8 +33,9 @@
         >
           <b-form-datepicker
             id="input-3"
-            v-model="Antrag.von"
+            v-model="von"
             placeholder="Anfangsdatum auswählen"
+            :min="minAnfang"
             required
           ></b-form-datepicker>
         </b-form-group>
@@ -42,8 +43,9 @@
         <b-form-group id="input-group-4" label="Enddatum:" label-for="input-4">
           <b-form-datepicker
             id="input-4"
-            v-model="Antrag.bis"
+            v-model="bis"
             placeholder="Enddatum auswählen"
+            :min="von"
             required
           ></b-form-datepicker>
         </b-form-group>
@@ -65,15 +67,19 @@ import { server } from "../helper.js";
 export default {
   name: "editUrlaubsantrag",
   data() {
+    const datum = new Date();
+    const datum_heute = new Date(datum.getFullYear(), datum.getMonth(), datum.getDate());
+    
+    const minVon = new Date(datum_heute);
+    minVon.setDate(minVon.getDate()+ 1);
     return {
         AntragID: null,
-        Antrag: {
-          Urlaubsart: "",
+        internalBis: "",
+        minAnfang: minVon,
+        Urlaubsart: "",
         Grund: "",
         von: "",
-        bis: "",
         Status: "",
-        },
       arten: [
         { value: null, text: "Wählen Sie die Urlaubsart aus" },
         { value: "Urlaub", text: "Urlaub" },
@@ -87,6 +93,19 @@ export default {
       ],
       Urlaubstage: "",
     };
+  },
+  computed: {
+    bis: {
+      get: function () {
+        if (this.internalBis < this.von) {
+          return this.von;
+        }
+        return this.internalBis;
+      },
+      set: function(newValue) {
+        this.internalBis = newValue;
+      }
+    }
   },
   created() {
     this.AntragID = this.$route.params.id;
@@ -104,17 +123,21 @@ export default {
       },
       getAntrag(){
         axios.get(server.baseURL + '/urlaubsantrag/' + this.AntragID).then(response => 
-        (this.Antrag = response.data));
+        { this.Urlaubsart = response.data.Urlaubsart;
+          this.Grund = response.data.Grund;
+          this.von = response.data.von;
+          this.bis = response.data.bis;
+        });
       },
       bearbeiteAntrag(){
         let antragdaten = {
-        Urlaubsart: this.Antrag.Urlaubsart,
+        Urlaubsart: this.Urlaubsart,
         Status: "Erstellt",
-        von: this.Antrag.von,
-        bis: this.Antrag.bis,
-        Grund: this.Antrag.Grund,
+        von: this.von,
+        bis: this.bis,
+        Grund: this.Grund,
         informiert: false,
-        benutzer: this.Antrag.benutzer
+        benutzer: this.benutzer
       };
       this.updateAntrag(this.AntragID, antragdaten);
       },

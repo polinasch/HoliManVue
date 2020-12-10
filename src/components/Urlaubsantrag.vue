@@ -51,8 +51,8 @@
             id="input-4"
             v-model="von"
             placeholder="Anfangsdatum auswählen"
-            required
             :min="minAnfang"
+            required
           ></b-form-datepicker>
         </b-form-group>
 
@@ -61,7 +61,7 @@
             id="input-5"
             v-model="bis"
             placeholder="Enddatum auswählen"
-            :min="minEnde"
+            :min="von"
             required
           ></b-form-datepicker>
         </b-form-group>
@@ -89,17 +89,13 @@ export default {
     const minVon = new Date(datum_heute);
     minVon.setDate(minVon.getDate()+ 1);
 
-    const minBis = new Date(datum_heute);
-    minBis.setDate(minVon.getDate()+1);
-
     return {
         Urlaubsart: "",
         Grund: "",
         von: "",
-        bis: "",
         Status: "",
         minAnfang: minVon,
-        minEnde: minBis,
+        internalBis: "",
         benutzer: null,
         Benutzer: [],
       arten: [
@@ -115,6 +111,19 @@ export default {
       ],
       Urlaubstage: "",
     };
+  },
+  computed: {
+    bis: {
+      get: function () {
+        if (this.internalBis < this.von) {
+          return this.von;
+        }
+        return this.internalBis;
+      },
+      set: function(newValue) {
+        this.internalBis = newValue;
+      }
+    }
   },
   created() {
     this.getBenutzer();
