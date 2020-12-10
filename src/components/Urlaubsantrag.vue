@@ -90,7 +90,7 @@ export default {
     minVon.setDate(minVon.getDate()+ 1);
 
     return {
-        Urlaubsart: "",
+        Urlaubsart: null,
         Grund: "",
         von: "",
         Status: "",

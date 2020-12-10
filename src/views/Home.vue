@@ -44,14 +44,14 @@
         <b-col>
           <router-link to="/erhalteneAntraege">
             <b-button type="button" block variant="dark" class="btn"
-              >Erhaltene Urlaubsanträge</b-button
+              >Zu genehmigende Urlaubsanträge</b-button
             >
           </router-link>
         </b-col>
         <b-col>
           <router-link to="/urlaubsliste">
             <b-button type="button" block variant="dark" class="btn"
-              >Urlaubsliste</b-button
+              >Mitarbeiter im Urlaub</b-button
             >
           </router-link>
         </b-col>
@@ -67,7 +67,7 @@
         <b-col>
           <router-link to="/antraegeliste">
             <b-button type="button" block variant="dark" class="btn">
-              Meine Urlaubsanträge</b-button
+             Urlaubsanträge der Mitarbeiter</b-button
             >
           </router-link>
         </b-col>
