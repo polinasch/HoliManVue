@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Login from "../components/Login.vue"
 import Home from "../views/Home.vue"
 import Urlaubsantrag from "../components/Urlaubsantrag.vue"
 import Anträgeliste from "../views/Anträgeliste.vue"
@@ -19,13 +18,8 @@ const routes = [
   {
     path: '/',
     redirect: {
-        name: "login"
+        name: "home"
     }
-},
-{
-    path: "/login",
-    name: "login",
-    component: Login
 },
 {
     path: "/home",
