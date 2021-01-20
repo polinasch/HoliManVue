@@ -24,8 +24,7 @@
         {{ row.item.Urlaubsart }}
       </template>
       <template #cell(Urlaubstage)="row">
-        {{ moment(row.item.von).format("DD.MM.YYYY") }} bis
-        {{ moment(row.item.bis).format("DD.MM.YYYY") }}
+        {{moment(row.item.bis).diff(moment(row.item.von), 'days')+1}}
       </template>
       <template #cell(von)="row">
         {{ moment(row.item.von).format("DD.MM.YYYY") }}

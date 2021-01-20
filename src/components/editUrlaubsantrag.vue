@@ -51,7 +51,7 @@
         </b-form-group>
 
         <div class="mt-3">
-          Anzahl der Urlaubstage: <strong>{{ Urlaubstage }}</strong>
+          Anzahl der Urlaubstage: <strong>{{ urlaubstage }}</strong>
         </div>
 
         <b-button type="submit" variant="primary">Speichern</b-button>
@@ -64,6 +64,7 @@
 <script>
 import axios from "axios";
 import { server } from "../helper.js";
+const moment = require('moment');
 export default {
   name: "editUrlaubsantrag",
   data() {
@@ -90,8 +91,7 @@ export default {
         { value: "Hochzeit", text: "Hochzeit" },
         { value: "Geburt", text: "Geburt" },
         { value: "Umzug", text: "Sonstiges" },
-      ],
-      Urlaubstage: "",
+      ]
     };
   },
   computed: {
@@ -105,6 +105,9 @@ export default {
       set: function(newValue) {
         this.internalBis = newValue;
       }
+    },
+    urlaubstage: function (){
+      return moment(this.bis).diff(moment(this.von), 'days')+1;
     }
   },
   created() {

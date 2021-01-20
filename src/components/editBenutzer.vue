@@ -121,7 +121,6 @@
           </b-form-select>
         </b-form-group>
 
-        <p>{{Benutzer}}</p>
         <b-button type="submit" variant="primary">Speichern</b-button>
         <b-button type="reset" variant="secondary">Abbrechen</b-button>
       </b-form>
