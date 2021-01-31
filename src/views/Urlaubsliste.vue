@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <h2>Mitarbeiter im Urlaub</h2>
-    <b-table striped bordered hover :fields="fields" :items="urlaubsliste" :sort-desc.sync="sortDesc">
+    <b-table striped bordered hover :fields="fields" :items="liste" :sort-desc.sync="sortDesc">
       <template #cell(BenutzerID)="row">
         {{ row.item.benutzer.BenutzerID }}
       </template>
@@ -12,7 +12,7 @@
         {{ row.item.benutzer.Vorname }}
       </template>
       <template #cell(urlaubstage)="row">
-        {{ moment(row.item.von).format('DD.MM.YYYY')}} bis {{ moment(row.item.bis).format('DD.MM.YYYY')}}
+        {{moment(row.item.bis).diff(moment(row.item.von), 'days')+1}}
       </template>
       <template #cell(von)="row">
         {{ moment(row.item.von).format('DD.MM.YYYY')}}
@@ -43,7 +43,8 @@ import { server } from "../helper.js";
             {key: 'von', sortable: true},
             {key: 'bis', sortable: true}
         ],
-        urlaubsliste: []
+        urlaubsliste: [],
+        liste: []
       }
     },
     created(){
@@ -51,8 +52,9 @@ import { server } from "../helper.js";
     },
     methods: {
       getUrlaubsliste(){
-        axios.get(server.baseURL + '/urlaubsantrag').then(response =>
-        (this.urlaubsliste = response.data));
+        axios.get(server.baseURL + "/urlaubsantrag").then((response) => (
+          this.liste = response.data
+        ));
       }
     }
   }
