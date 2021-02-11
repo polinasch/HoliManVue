@@ -97,12 +97,12 @@
         </b-form-group>
 
         <b-form-group label="Zusätzliche Rolle:">
-        <b-form-checkbox id="input-10" v-model="istVorgesetzter"
-          >Vorgesetzter</b-form-checkbox
-        >
-        <b-form-checkbox id="input-11" v-model="istAdmin"
-          >Admin</b-form-checkbox
-        >
+          <b-form-checkbox id="input-10" v-model="istVorgesetzter"
+            >Vorgesetzter</b-form-checkbox
+          >
+          <b-form-checkbox id="input-11" v-model="istAdmin"
+            >Admin</b-form-checkbox
+          >
         </b-form-group>
 
         <b-form-group
@@ -120,7 +120,7 @@
             </b-form-select-option>
           </b-form-select>
         </b-form-group>
-          <b-button type="submit" variant="primary">Speichern</b-button>
+        <b-button type="submit" variant="primary">Speichern</b-button>
         <b-button type="reset" variant="secondary">Abbrechen</b-button>
       </b-form>
     </b-container>
@@ -134,14 +134,18 @@ export default {
   name: "Benutzer",
   data() {
     const datum = new Date();
-    const datum_heute = new Date(datum.getFullYear(), datum.getMonth(), datum.getDate());
-    
+    const datum_heute = new Date(
+      datum.getFullYear(),
+      datum.getMonth(),
+      datum.getDate()
+    );
+
     const maxEintritt = new Date(datum_heute);
     maxEintritt.setMonth(maxEintritt.getMonth());
 
     const maxGeburtstag = new Date(datum_heute);
-    maxGeburtstag.setFullYear(maxGeburtstag.getFullYear()-14);
-      
+    maxGeburtstag.setFullYear(maxGeburtstag.getFullYear() - 14);
+
     return {
       Benutzername: "",
       Passwort: "",
@@ -157,7 +161,7 @@ export default {
       bundeslaender: [],
       vorgesetzten: [],
       maxEintrittsdatum: maxEintritt,
-      maxGeburtsdatum: maxGeburtstag
+      maxGeburtsdatum: maxGeburtstag,
     };
   },
   created() {
@@ -167,17 +171,17 @@ export default {
   methods: {
     onReset(evt) {
       evt.preventDefault();
-        this.Benutzername = "";
-        this.Passwort = "";
-        this.Vorname = "";
-        this.Nachname = "";
-        this.Geburtsdatum = "";
-        this.Email = "";
-        this.Eintrittsdatum = "";
-        this.bundesland = null;
-        this.istAdmin = false;
-        this.istVorgesetzter = false;
-        this.Vorgesetzter = null;
+      this.Benutzername = "";
+      this.Passwort = "";
+      this.Vorname = "";
+      this.Nachname = "";
+      this.Geburtsdatum = "";
+      this.Email = "";
+      this.Eintrittsdatum = "";
+      this.bundesland = null;
+      this.istAdmin = false;
+      this.istVorgesetzter = false;
+      this.Vorgesetzter = null;
       this.$router.push({ name: "home" });
     },
     erstelleBenutzer() {
@@ -192,7 +196,7 @@ export default {
         bundesland: this.bundesland,
         istAdmin: this.istAdmin,
         istVorgesetzter: this.istVorgesetzter,
-        Vorgesetzter: this.Vorgesetzter
+        Vorgesetzter: this.Vorgesetzter,
       };
       this.submitToServer(benutzerdaten);
     },
@@ -211,7 +215,7 @@ export default {
       axios
         .get(server.baseURL + "/benutzer/vorgesetzter?istVorgesetzter=true")
         .then((response) => (this.vorgesetzten = response.data));
-    }
+    },
   },
 };
 </script>

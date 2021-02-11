@@ -76,8 +76,7 @@ export default {
         this.$router.push({ name: "home" });
         return data;
       });
-    },
-    
+    },  
 }
 };
 </script>
